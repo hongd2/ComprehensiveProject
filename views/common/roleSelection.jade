@@ -1,0 +1,24 @@
+extends commonPanel
+
+block extracss
+    link(href='/static/css/common.css', rel='stylesheet')
+
+
+block content
+    div
+        div.row.top-bottom-margin
+            strong.center-text.center-block.big-font
+                | Select one role to continue
+        if user.manager.flag
+            div.row.top-bottom-margin
+                a(href='/console/manager').btn-primary.btn-lg.center-block.center-text
+                    | Manager
+        if user.waiter.flag
+            div.row.top-bottom-margin
+                a(href='/console/waiter').btn-primary.btn-lg.center-block.center-text
+                    | Waiter
+        if user.diner.flag
+            div.row.top-bottom-margin
+                a(href='/console/diner').btn-primary.btn-lg.center-block.center-text
+                    | Diner
+

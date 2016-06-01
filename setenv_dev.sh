@@ -1,0 +1,16 @@
+export FACEBOOK_OAUTH_CLIENTSECRET=b5441251e0afe9300605a2823802b97b
+export AWS_S3_ACCESS_KEY_ID=AKIAITISOHCRWYTCMRXQ
+export RDS_PORT=5432
+export GOOGLE_OAUTH_CLIENTID=818208442085-b7trfffsgs8dj0a1n9igm2n83b20guut.apps.googleusercontent.com
+export FACEBOOK_OAUTH_CALLBACK=http://localhost:1337/auth/facebook/callback
+export RDS_PASSWORD=daviddavid
+export GOOGLE_OAUTH_CALLBACK=http://localhost:1337/auth/google/callback
+export PORT=1337
+export FACEBOOK_OAUTH_CLIENTID=1475683006087078
+export AWS_S3_ACCESS_KEY=GZo4PMB657yDaWwH2Y/ToJy8PNziV7bUUiFyXCfR
+export GOOGLE_OAUTH_CLIENTSECRET=qD1izIFnXoSgmioRvVA-Pj-J
+export NODE_ENV=development
+export RDS_USERNAME=david
+export RDS_HOSTNAME=davidwaiterlink.crqmqnzdnelp.us-west-2.rds.amazonaws.com
+export REDIS_HOST=rediswaiterlink.myeygl.0001.usw2.cache.amazonaws.com
+export REDIS_PORT=6379

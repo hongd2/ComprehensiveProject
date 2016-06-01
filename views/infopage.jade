@@ -1,0 +1,145 @@
+html
+  head
+    title WaiterLink
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/static/css/infopage/main.css')
+  body
+    // Header
+    section#header
+      header
+        span.image.avatar
+          img(src='http://i.imgur.com/TbfeezM.png', alt='')
+        h1#logo
+          a(href='#') WaiterLink
+        p
+          strong
+            | Serve Smarter
+      nav#nav
+        ul
+          li
+            a(href='#Demo') Pitch Video
+          li
+            a(href='#HowItWorks') How it works
+          li
+            a(href='#Technologies') Technologies
+          li
+            a(href='#AboutUs') The Team
+          li
+            a(href='/console') Console 
+      footer
+        ul.icons
+          li
+            a.icon.fa-facebook(href='https://www.facebook.com/waiterlink')
+              span.label Facebook
+          //- li
+          //-   a.icon.fa-instagram(href='#')
+          //-     span.label Instagram
+          //- li
+          //-   a.icon.fa-github(href='#')
+          //-     span.label Github
+          //- li
+          //-   a.icon.fa-envelope(href='#')
+          //-     span.label Email
+    // Wrapper
+    #wrapper
+      // Main
+      section#ProjDesp
+        .container
+          header.major
+            h2 waiterlink
+            h3 Serve Smarter
+            p
+          strong
+            | A web platform allowing customers to instantaneously communicate with waiters’ smartwatch and rate/review waiter service.
+      // Four
+      section#Demo
+        .container
+          h3 Pitch video
+            .video-container
+              iframe(src='https://www.youtube.com/embed/AePtUi25EmM', frameborder='0', allowfullscreen='allowfullscreen')
+      section#HowItWorks
+        .container
+          h3 How it works
+          img(style='width:100%;', src='http://i.imgur.com/Mj3cafS.png')
+          br
+          strong
+            | The customers send requests from their smartphones via the cloud to the smartwatch on the waiter
+          br
+          strong
+            | The waiter could respond with a simple message such as "I'll get it" or "Hang on, I'm busy"
+          br
+          strong  Customers rate and review the service from the waiter 
+      section#Technologies
+        .container
+          h3 Technologies
+          .container-fluid
+            .row
+              .col-md-4
+                img.center-block(style='max-height: 200px; max-width: 100%;', src='http://3.bp.blogspot.com/-9AsG0vZMdjg/Vb0G2ehFr5I/AAAAAAAAAS0/Iw7DgVUzKC4/s1600/nodejs-logo.png')
+              .col-md-4
+                img.center-block(style='max-height: 200px; max-width: 100%;', src='http://2.bp.blogspot.com/-xiBNHcpxjWE/TndsywouDGI/AAAAAAAAAoY/X3SPSn0bhcE/s1600/postgresql_logo-555px.png')
+              .col-md-4
+                img.center-block(style='max-height: 200px; max-width: 100%;', src='https://upload.wikimedia.org/wikipedia/commons/6/66/Android_robot.png')
+              .col-md-4
+                img.center-block(style='max-height: 200px; max-width: 100%;', src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Pebble_logo.svg/1000px-Pebble_logo.svg.png')
+              .col-md-4
+                img.center-block(style='max-height: 200px; max-width: 100%;', src='http://www.webnersolutions.com/wp-content/uploads/2015/10/ios_logo.png')
+              .col-md-4
+                img.center-block(style='max-height: 200px; max-width: 100%;', src='https://camo.githubusercontent.com/55f17f6e83aee7ec88accdd90281ac4d2ecd5c35/687474703a2f2f692e696d6775722e636f6d2f597961394149792e706e67')
+      //
+        <section id="Media">
+        <div class="container">
+        <h3>Media</h3>
+        Coming Soon
+        </div>
+        </section>
+      section#AboutUs
+        .container
+          h3 The Team
+          .row
+            .col-md-4
+              img#AboutUsImg.center-block(style='height: 300px;', src='http://i.imgur.com/upj7PHD.jpg', title='source: imgur.com')
+              br
+              p.center-block(style='text-align: center; width:100%;')
+                strong David Hong
+                br
+                | hongd2@ucla.edu
+            .col-md-4
+              img#AboutUsImg.center-block(style='height: 300px;', src='http://i.imgur.com/7YSsHIb.jpg', title='source: imgur.com')
+              br
+              p.center-block(style='text-align: center; width:100%;')
+                strong Quan Chau
+                br
+                | quanqchau@ucla.edu
+            .col-md-4
+              img#AboutUsImg.center-block(style='height: 300px;', src='http://i.imgur.com/pZfjZpg.jpg', title='source: imgur.com')
+              br
+              p.center-block(style='text-align: center; width:100%;')
+                strong Jamie Lee
+                br
+                | jamiesl@ucla.edu
+          .row
+            .col-md-6
+              img#AboutUsImg.center-block(style='height: 300px;', src='http://i.imgur.com/D3jJowt.jpg', title='source: imgur.com')
+              br
+              p.center-block(style='text-align: center; width:100%;')
+                strong Tom Dwyer
+                br
+                | dwyer2016@lawnet.ucla.edu
+            .col-md-6
+              img#AboutUsImg.center-block(style='height: 300px;', src='http://i.imgur.com/pXTHF3D.jpg', title='source: imgur.com')
+              br
+              p.center-block(style='text-align: center; width:100%;')
+                strong Alexander Matvienko
+                br
+                | oleksandr.matviienko.2017@anderson.ucla.edu
+    // Scripts
+    script(src='/bower_components/jquery/dist/jquery.min.js')
+    script(src='/static/js/jquery.scrollzer.min.js')
+    script(src='/static/js/jquery.scrolly.min.js')
+    script(src='/static/js/infopage/skel.min.js')
+    script(src='/static/js/infopage/util.js')
+    //if lte IE 8
+      script(src='assets/js/ie/respond.min.js')
+    script(src='/static/js/infopage/main.js')

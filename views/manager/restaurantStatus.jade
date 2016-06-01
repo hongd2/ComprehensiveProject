@@ -1,0 +1,57 @@
+extends managerBasePanel
+
+block extracss
+    link(href='/static/css/common.css', rel='stylesheet')
+
+block centerPanel
+  if errorMessage
+    h4(style="color: red;")= errorMessage
+  if goodMessage
+    h4(style="color: green;")= goodMessage
+
+  if user.manager.flag
+    .col-lg-6
+      .page-header
+        h3
+          strong=restaurant.name
+        h4=restaurant.address
+        h5='Tables: ' + restaurant.num_table
+
+    .col-lg-6
+      a.btn.btn-default
+
+        
+    .col-lg-12
+      .panel.panel-info
+        .panel-heading
+          strong Working waiters
+        .panel-body
+          table.table.table-striped
+            thead
+              tr
+                th Username
+                th Tables
+            tbody
+              each working in restaurant.current_shifts
+                tr
+                  td
+                    a(href='/console/manager/waiter/' + working.waiter.user_id)=working.waiter.username 
+                  td=working.table_number
+
+    .col-lg-12
+      .panel.panel-success
+        .panel-heading
+          strong All waiters
+        .panel-body
+          ol
+            each employed in restaurant.all_waiters
+              li
+                a(href='/console/manager/waiter/' + employed.user_id)=employed.username 
+    .col-lg-12
+      .panel.panel-
+      
+  else
+    // Enforce that only manager can access this page
+    h2
+      strong(style="color: red;")
+        | You don't have access to this area

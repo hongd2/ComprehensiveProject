@@ -1,0 +1,49 @@
+.top-bottom-margin
+{
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.center-text
+{
+    text-align: center;
+}
+
+.big-font
+{
+    font-size: 20px;
+}
+
+.restaurant-picture
+{
+  max-width:100px;
+  max-height:100px;
+}
+
+.top-bottom-margin-small
+{
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.black-font
+{
+    font-color: black;
+}
+
+.left-right-margin-md
+{
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+/* svg {               */
+/*     display: block; */
+/* }                   */
+
+html, body, #chart1, svg {
+    margin: 0px;
+    padding: 0px;
+    /* height: 400px; */
+    /* width: 100%; */
+}

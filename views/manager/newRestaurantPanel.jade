@@ -1,0 +1,33 @@
+extends managerBasePanel
+
+block centerPanel
+  if errorMessage
+    h4(style="color: red;")= errorMessage
+  if goodMessage
+    h4(style="color: green;")= goodMessage
+
+  if user.manager.flag
+    .row
+      h3 Please enter new restaurant detail below:
+    br
+    .row
+      .col-md-6
+        form(name='new_restaurant', action='', method='post', enctype="multipart/form-data")
+          .row
+            label.string.optional(for='restaurantName') Restaurant Name:
+            input#restaurantName.form-control(maxlength='100', name='restaurantName', placeholder='', type='text', size='50')
+          .row
+            label.string.optional(for='restaurantAddress') Address:
+            input#restaurantAddress.form-control(maxlength='100', name='restaurantAddress', placeholder='', type='text', size='50')
+          .row
+            label.string.optional(for='restaurantPicture') Picture:
+            input#restaurantPicture.form-control(name='restaurantPicture', placeholder='', type='file', accept="image/*")
+          br 
+          .row
+            input.submit.btn-primary.btn(name='commit', type='submit', value='Add restaurant')
+      
+  else
+    // Enforce that only manager can access this page
+    h2
+      strong(style="color: red;")
+        | You don't have access to this area

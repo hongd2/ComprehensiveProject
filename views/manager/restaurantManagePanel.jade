@@ -1,0 +1,47 @@
+extends managerBasePanel
+
+block extracss
+    link(href='/static/css/common.css', rel='stylesheet')
+
+
+block centerPanel
+  if errorMessage
+    h4(style="color: red;")= errorMessage
+  if goodMessage
+    h4(style="color: green;")= goodMessage
+
+  if user.manager.flag
+    .col-lg-12
+      .page-header
+        h3 All restaurants you manage:
+    each rest in restaurants
+      .col-lg-4
+        .panel.panel-default
+          .panel-heading
+            a(href='/console/manager/restaurant/' + rest.restaurant_id)
+              strong=rest.name
+          .panel-body
+            .col-md-4
+              img.restaurant-picture(src=rest.picture)
+            .col-md-8
+              p=rest.address
+              p='Tables: ' + rest.num_table
+          //- .panel-footer
+
+
+        //- div.col-md-4
+          img.restaurant-picture(src=rest.picture)
+        //- div.col-md-8
+          div.row
+            strong=rest.name
+          div.row
+            p='Address: ' + rest.address
+          div.row
+            p='Number of tables: ' + rest.num_table
+    //- br
+
+  else
+    // Enforce that only manager can access this page
+    h2
+      strong(style="color: red;")
+        | You don't have access to this area

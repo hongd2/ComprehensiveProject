@@ -1,0 +1,620 @@
+swagger: '2.0'
+info:
+  title: Waiter Link API
+  description: API to communicate between back end and front end of Waiter Link app
+  version: 1.0.0
+host: www.waiter.link
+schemes:
+  - https
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /api/signin:
+    post:
+      summary: Authenticate user with email and password
+      description: |
+        This is the one stop authentication to all the services of Waiter Link
+         <br/>NEED REVISE
+      tags:
+        - Authentication
+      parameters:
+        - name: username
+          in: query
+          description: Username of user.
+          required: true
+          type: string
+        - name: password
+          in: query
+          description: Password of user.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Log in successfully
+          schema:
+            type: object
+            properties:
+              user:
+                $ref: '#/definitions/User'
+        '400':
+          description: Error in log in
+          schema:
+            $ref: '#/definitions/Error'
+  /api/signup:
+    post:
+      summary: Sign up new user
+      tags:
+        - Authentication
+      parameters:
+        - name: username
+          in: query
+          description: Username of user.
+          required: true
+          type: string
+        - name: password
+          in: query
+          description: Password of user.
+          required: true
+          type: string
+        - name: passwordRepeat
+          in: query
+          description: Repeat assword of user.
+          required: true
+          type: string  
+      responses:
+        '200':
+          description: Sign up successfully
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        '400':
+          description: Error in log in
+          schema:
+            $ref: '#/definitions/Error'
+  /api/checkcookie:
+    get:
+      summary: Check cookie - user binding still valid
+      description: >
+        Use this to check if user's cookie is still valid, if not you need to re
+        login
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: "User's cookie is still valid"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        '400':
+          description: This cookie is invalid
+          schema:
+            $ref: '#/definitions/Error'
+  /api/signout:
+    post:
+      summary: Log out user
+      description: "End user's session and log out"
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: User log out successfully
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        '401':
+          description: Error in logging out user
+          schema:
+            $ref: '#/definitions/Error'
+  /helloworld:
+    get:
+      summary: "Test server's health"
+      description: "Server will response with message 'Hi there'"
+      responses:
+        '200':
+          description: OK
+  /api/restaurantStatus:
+    get:
+      summary: Get list of restaurant this manager manages - NEED REVISE
+      tags:
+        - Manager
+      responses:
+        '200':
+          description: Retrieve list of restaurants successfully
+          schema:
+            type: object
+            properties:
+              restaurants:
+                $ref: '#/definitions/Restaurant'
+        '401':
+          description: Unauthorized access
+          schema:
+            $ref: '#/definitions/Error'
+  /api/getAvailableRestaurants:
+    get:
+      summary: "Get list of restaurant in the system that the waiter doesn't work yet"
+      tags:
+        - Waiter
+      responses:
+        '200':
+          description: Retrieve list of restaurant successfully
+          schema:
+            type: object
+            properties:
+              restaurants:
+                $ref: '#/definitions/Restaurant'
+        '401':
+          description: Unauthorized access
+          schema:
+            $ref: '#/definitions/Error'
+  /api/getPendingWorkRequest:
+    get:
+      summary: Manager get list of pending work request from waiter
+      description: Need manager privilege
+      tags:
+        - Manager
+      responses:
+        '200':
+          description: Retrieve list of work request successfully
+          schema:
+            type: object
+            properties:
+              requests:
+                $ref: '#/definitions/WorkRequest'
+        '401':
+          description: Unauthorized access
+          schema:
+            $ref: '#/definitions/Error'
+  /api/getRestaurantInfoById:
+    get:
+      summary: Get restaurant information based on restaurant id
+      tags:
+        - Diner
+      parameters:
+        - name: restaurant_id
+          in: query
+          description: Restaurant id number in database
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Retrieve restaurant information successfully
+          schema:
+            $ref: '#/definitions/Restaurant'
+        '400':
+          description: "Can't retrieve restaurant information"
+          schema:
+            $ref: '#/definitions/Error'
+  /api/askToWorkRestaurant:
+    post:
+      summary: Waiter submit request to work at a restaurant
+      parameters:
+        - name: restaurant_id
+          in: query
+          description: Restaurant id number in database
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Waiter submit request to work successfully
+          schema:
+            type: object
+            properties:
+              request_id:
+                type: integer
+                description: Request id number in database
+        '400':
+          description: Error in submitting request
+          schema:
+            $ref: '#/definitions/Error'
+  /api/waiterGetListWorkRestaurant:
+    get:
+      summary: Waiter get list of restaurant he/she is authenticated to work
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              restaurants:
+                $ref: '#/definitions/Restaurant'
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/getWaiterServingInfo:
+    get:
+      summary: Get information about the waiter waiting this table
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WaiterInfo'
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/waiterStartShift:
+    post:
+      summary: Waiter start their shift and sign up to server a group of table
+      parameters:
+        - name: restaurant_id
+          in: query
+          description: Restaurant id number in database
+          required: true
+          type: integer
+        - name: table_number
+          in: query
+          description: 'List of table number separated by comma, such as "2,3,4,7,8"'
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              shift_id:
+                type: integer
+                description: 'ID number of the shift this waiter just started'
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/getWaiterOpenShift:
+    get:
+      summary: Waiter retrieve list of shifts they are working
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WaiterShift'
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/waiterCloseShift:
+    post:
+      summary: Waiter retrieve list of shifts they are working
+      parameters:
+        - name: shift_id
+          in: query
+          description: Id of the shift to close
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/waiterChangeServingTable:
+    post:
+      summary: Waiter change the tables he/she is serving
+      parameters:
+        - name: shift_id
+          in: query
+          description: Id of the shift to close
+          required: true
+          type: integer
+        - name: table_number
+          in: query
+          description: 'List of table number separated by comma, such as "2,3,4,7,8"'
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/dinerRequestOccupyTable:
+    post:
+      summary: diner requests to occupy a table from waiter, for now the request
+        is automatically granted
+      tags:
+        - Diner
+      parameters:
+        - name: restaurant_id
+          in: query
+          description: Id of the restaurant
+          required: true
+          type: integer
+        - name: table_number
+          in: query
+          description: 'Table number to occupy'
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/DinerOccupyTable'
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/dinerEndOccupyTable:
+    post:
+      summary: Waiter change the tables he/she is serving
+      tags:
+        - Diner
+      parameters:
+        - name: occupy_id
+          in: query
+          description: Id of the occupation
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/waiterDecideRequestOccupyTable:
+    post:
+      summary: Waiter change the tables he/she is serving
+      tags:
+        - Waiter
+      parameters:
+        - name: request_id
+          in: query
+          description: Id of the table occupation request
+          required: true
+          type: integer
+        - name: decision
+          in: query
+          description: Decision to approve or reject requests to occupy table. 0 for rejection and 1 for approval
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/getWaiterInfoById:
+    get:
+      summary: get public profile of a waiter
+      tags:
+        - Diner
+        - Waiter
+      parameters:
+        - name: waiterid
+          in: query
+          description: Id of the waiter to request info
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/WaiterProfile'
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/dinerRateReviewService:
+    post:
+      summary: Diner submit rating and review the service
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: occupy_id
+          in: query
+          description: Id of the table occupation to rate / review
+          required: true
+          type: integer
+        - name: rating
+          in: query
+          description: Rating as an integer from 1 to 5 inclusively
+          required: true
+          type: integer
+        - name: review
+          in: query
+          description: Review of service
+          required: true
+          type: string
+        - name: type
+          in: query
+          description: Type of review. 1 for private to waiter, 2 for private to manager and 3 for public
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'          
+  /api/waiterGetRatingStatistics:
+    get:
+      summary: Waiter get the statistics about his/her ratings. It won't count rating/review private to manager
+      tags:
+        - Waiter
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/RatingStatistics'
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/managerGetRatingStatistics:
+    get:
+      summary: Manager get the statistics about waiters under his/her employment. It won't count rating/review private to waiter
+      tags:
+        - Manager
+      parameters:
+        - name: waiter_id
+          in: query
+          description: Id of the waiter to get statistics from
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/RatingStatistics'
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  User:
+    type: object
+    properties:
+      user_id:
+        type: integer
+        description: User id in the database
+      manager_flag:
+        type: boolean
+        description: Flag to indicate if this user has manager privilege
+      diner_flag:
+        type: boolean
+        description: Flag to indicate if this user has diner privilege
+      waiter_flag:
+        type: boolean
+        description: Flag to indicate if this user has waiter privilege
+  WaiterInfo:
+    type: object
+    properties:
+      waiter_id:
+        type: integer
+        description: Waiter id in the database
+      waiter_pic:
+        type: string
+        description: URL to waiter profile picture
+      waiter_profile:
+        type: string
+        description: waiter's own description of himself/herself
+      waiter_name:
+        type: string
+        description: Waiter's name
+  Restaurant:
+    type: object
+    properties:
+      restaurant_id:
+        type: integer
+        description: Restaurant id in the database
+      name:
+        type: string
+        description: Name of restaurant
+      address:
+        type: string
+        description: Address of restaurant
+      picture:
+        type: string
+        description: URL to logo/picture of the restaurant
+      num_table:
+        type: integer
+        description: Number of table at this restaurant
+  WorkRequest:
+    type: object
+    properties:
+      request_id:
+        type: integer
+        description: Request id in the database
+      waiter_name:
+        type: string
+        description: Name of waiter requesting work
+      waiter_username:
+        type: string
+        description: Username of waiter requesting work
+      restaurant_name:
+        type: string
+        description: Name of restaurant this waiter is requesting
+      request_time_stamp:
+        type: string
+        description: Time the request was initiated
+  WaiterShift:
+    type: object
+    properties:
+      shift_id:
+        type: integer
+        description: Shift id in database
+      waiter_id:
+        type: integer
+        description: Waiter id in database
+      restaurant_id:
+        type: integer
+        description: Restaurant id in the database
+      table_number:
+        type: array
+        description: List of table numbers that waiter serves in this shift
+        items:
+          type: integer
+      serve_start_time:
+        type: string
+        description: time this shift starts
+      serve_end_time:
+        type: string
+        description: time this shift ends
+  WaiterProfile:
+    type: object
+    properties:
+      waiter_id:
+        type: integer
+        description: Waiter id in database
+      name:
+        type: string
+      profile:
+        type: string
+        description: public profile of waiter
+      pic:
+        type: string
+        description: URL to waiter's profile picture
+  RatingStatistics:
+    type: object
+    properties:
+      waiter_id:
+        type: integer
+        description: Waiter id in database
+      ratings:
+        type: array
+        description: Array of number of ratings from 1 star to 5 star
+        items:
+          type: integer
+  DinerOccupyTable:
+    type: object
+    properties:
+      occupy_id:
+        type: integer
+        description: Occupation id in the database
+      restaurant_id:
+        type: integer
+        description: Restaurant id where occupation happens 
+      table_number:
+        type: integer
+        description: Number of table occupied
+      diner_id:
+        type: integer
+        description: User id that occupies this table
+      start_time:
+        type: time
+        description: Occupation start time
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string

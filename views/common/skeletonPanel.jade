@@ -1,0 +1,47 @@
+extends commonPanel
+
+
+block content
+  - var logoClass = (user.manager.flag ? 'logoClassManager' : (user.waiter.flag ? 'logoClassWaiter' : 'logoClassDiner'))
+    #wrapper
+      // Navigation
+      nav.navbar.navbar-default.navbar-static-top(role='navigation', style='margin-bottom: 0')
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a(href="/", class="navbar-brand #{logoClass}") 
+            | Waiter Connect 
+        // /.navbar-header
+        ul.nav.navbar-top-links.navbar-right
+          block topPanel
+          li.dropdown
+            a.dropdown-toggle(data-toggle='dropdown', href='#')
+              i.fa.fa-user.fa-fw
+              i.fa.fa-caret-down
+            ul.dropdown-menu.dropdown-user
+              li
+                a(href='#')
+                  i.fa.fa-user.fa-fw
+                  |  User Profile
+              li
+                a(href='#')
+                  i.fa.fa-gear.fa-fw
+                  |  Settings
+              li.divider
+              li
+                a(href='/signout')
+                  i.fa.fa-sign-out.fa-fw
+                  |  Logout
+
+        .navbar-default.sidebar(role='navigation')
+          .sidebar-nav.navbar-collapse
+            ul#side-menu.nav
+              block sidePanel
+                // /.nav-second-level
+          // /.sidebar-collapse
+        // /.navbar-static-side
+      #page-wrapper
+        block centerPanel

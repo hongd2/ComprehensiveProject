@@ -1,0 +1,20 @@
+This guide show you how to set up the post gres server from a brand new ubuntu server.
+
+ 1. sudo apt-get install postgresql postgresql-contrib
+ 2. sudo -u postgres psql postgres
+    \password postgres
+    < put a new password of postgres account here >
+
+-- For production database:
+ 3. sudo -u postgres createdb waiterconnect
+ 4. psql -U postgres -h localhost -p 5432 waiterconnect -f psql_script/first_setup.sql
+
+-- For development database:
+ 5. sudo -u postgres createdb waiterconnect_dev
+ 6. psql -U postgres -h localhost -p 5432 waiterconnect_dev -f psql_script/first_setup.sql
+ 7. psql -U postgres -h localhost -p 5432 waiterconnect_dev -f psql_script/sample_data.sql
+
+-- To erase database 
+ 8. sudo -u postgres dropdb <database name>
+
+

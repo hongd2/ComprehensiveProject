@@ -1,0 +1,68 @@
+extends managerBasePanel
+
+block extracss
+    link(href='/static/css/common.css', rel='stylesheet')
+    link(href='/static/css/pie-chart.css', rel='stylesheet')
+    //- link(href='https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css')
+
+block extrajs
+    script(type="text/javascript").
+      var myPlotData = !{JSON.stringify(waiter.ratings_statistics)};
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.11/d3.min.js')
+    //- script(src='https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js')
+    script(src='/static/js/chart.js')
+    script(type="text/javascript").
+      addGraph(myPlotData);
+
+block centerPanel
+  if errorMessage
+    h4(style="color: red;")= errorMessage
+  if goodMessage
+    h4(style="color: green;")= goodMessage
+
+  if user.manager.flag
+    .col-lg-6
+      .page-header
+        h3
+          strong=waiter.waiter_info.waiter_name
+      .panel.panel-primary
+        .panel-heading
+          strong Waiter Profile
+        .panel-body
+          .col-md-8
+            | Username: 
+            p(style='display: inline;')=waiter.username
+            br
+            | Public profile: 
+            p=waiter.waiter_info.waiter_profile
+          .col-md-4
+            img.restaurant-picture(src=waiter.waiter_info.waiter_pic)
+        
+    .col-lg-6
+      #pie-chart
+
+    .col-lg-12
+      .panel.panel-info
+        .panel-heading
+          strong All ratings and reviews
+        .panel-body
+          table.table.table-striped
+            thead
+              tr
+                th Rating
+                th Review
+                th Time
+            tbody
+              each review in waiter.all_ratings
+                tr
+                  td=review.rating
+                  td=review.review
+                  td=review.time
+      
+  else
+    // Enforce that only manager can access this page
+    h2
+      strong(style="color: red;")
+        | You don't have access to this area
+
+

@@ -1,0 +1,128 @@
+extends ../common/skeletonPanel
+
+block topPanel
+  // for system messages
+  //-li.dropdown
+    a.dropdown-toggle(data-toggle='dropdown', href='#')
+      i.fa.fa-envelope.fa-fw
+      i.fa.fa-caret-down
+    ul.dropdown-menu.dropdown-messages
+      li
+        a(href='#')
+          div
+            strong John Smith
+            span.pull-right.text-muted
+              em Yesterday
+          div
+            | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...
+      li.divider
+      li
+        a(href='#')
+          div
+            strong John Smith
+            span.pull-right.text-muted
+              em Yesterday
+          div
+            | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...
+      li.divider
+      li
+        a(href='#')
+          div
+            strong John Smith
+            span.pull-right.text-muted
+              em Yesterday
+          div
+            | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...
+      li.divider
+      li
+        a.text-center(href='#')
+          strong Read All Messages
+          i.fa.fa-angle-right
+    // /.dropdown-messages
+  // /.dropdown
+
+
+  li.dropdown
+    a.dropdown-toggle(data-toggle='dropdown', href='#')
+      i.fa.fa-bell.fa-fw
+      i.fa.fa-caret-down
+    ul.dropdown-menu.dropdown-alerts
+      li
+        a(href='#')
+          div
+            i.fa.fa-comment.fa-fw
+            |  New Comment
+            span.pull-right.text-muted.small 4 minutes ago
+      li.divider
+      li
+        a(href='#')
+          div
+            i.fa.fa-twitter.fa-fw
+            |  3 New Followers
+            span.pull-right.text-muted.small 12 minutes ago
+      li.divider
+      li
+        a(href='#')
+          div
+            i.fa.fa-envelope.fa-fw
+            |  Message Sent
+            span.pull-right.text-muted.small 4 minutes ago
+      li.divider
+      li
+        a(href='#')
+          div
+            i.fa.fa-tasks.fa-fw
+            |  New Task
+            span.pull-right.text-muted.small 4 minutes ago
+      li.divider
+      li
+        a(href='#')
+          div
+            i.fa.fa-upload.fa-fw
+            |  Server Rebooted
+            span.pull-right.text-muted.small 4 minutes ago
+      li.divider
+      li
+        a.text-center(href='#')
+          strong See All Alerts
+          i.fa.fa-angle-right
+    // /.dropdown-alerts
+  // /.dropdown
+
+block sidePanel
+  //-li.sidebar-search
+    .input-group.custom-search-form
+      input.form-control(type='text', placeholder='Search...')
+      span.input-group-btn
+        button.btn.btn-default(type='button')
+          i.fa.fa-search
+    // /input-group
+  li
+    a(href='/console/manager')
+      i.fa.fa-dashboard.fa-fw
+      |  Dashboard
+
+  li
+    a(href='#')
+      i.fa.fa-home.fa-fw
+      | Restaurants 
+      span.fa.arrow
+    ul.nav.nav-second-level
+      li
+        a(href='/console/manager/restaurants') Restaurant status
+      li
+        a(href='/console/manager/addNewRestaurant') Add new restaurants
+    // /.nav-second-level
+
+  li
+    a(href='#')
+      i.fa.fa-home.fa-fw
+      | Waiters
+      span.fa.arrow
+    ul.nav.nav-second-level
+      li
+        a(href='/console/manager/waiters') Waiter status
+      li
+        a(href='/console/manager/addNewWaiter') Add new waiters
+    // /.nav-second-level
+

@@ -1,0 +1,29 @@
+extends waiterBasePanel
+
+block centerPanel
+  if errorMessage
+    h4(style="color: red;")= errorMessage
+  if goodMessage
+    h4(style="color: green;")= goodMessage
+
+  .row
+    h3 Please enter new profile detail below:
+  br
+  .row
+    .col-md-6
+      form(name='profile', action='', method='post', enctype="multipart/form-data")
+        .row
+          label.string.optional(for='waitername') Name:
+          input#waiter_name.form-control(maxlength='100', name='waitername', placeholder='', type='text', size='50', value=waiter.waiter_info.waiter_name)
+        .row
+          label.string.optional(for='waiterprofile') Public profile:
+          textarea#waiter_profile.form-control(name='waiterprofile', rows='10', cols='50')= waiter.waiter_info.waiter_profile
+        .row
+          label.string.optional(for='waiterpic') Picture:
+          input#waiter_pic.form-control(name='waiterpic', placeholder='', type='file', accept="image/*")
+        br 
+        .row
+          input.submit.btn-primary.btn(name='commit', type='submit', value='Save profile')
+    .col-md-6
+      img(src=waiter.waiter_info.waiter_pic)
+

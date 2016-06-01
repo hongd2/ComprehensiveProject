@@ -1,0 +1,25 @@
+extends waiterBasePanel
+
+block centerPanel
+  .row
+    .col-lg-12
+      h2.page-header
+        | Welcome, 
+        strong=waiter.waiter_info.waiter_name
+
+  .row
+    .col-lg-6
+      img.restaurant-picture(src=waiter.waiter_info.waiter_pic)
+    .col-lg-6
+      .panel.panel-primary
+        .panel-heading
+          strong Waiter Profile
+        .panel-body
+          strong Username: 
+          p(style='display: inline;')=waiter.username
+          br
+          strong Public profile: 
+          p=waiter.waiter_info.waiter_profile
+          a(href='/console/waiter/profile').btn-lg.btn-success
+            | Edit
+

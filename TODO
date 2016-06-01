@@ -1,0 +1,8 @@
+* Manager can:
+    - Manage restaurants
+    - Manage waiter
+
+* Manage restaurant means:
+    - Add/remove manager
+    - Add/remove waiter
+    

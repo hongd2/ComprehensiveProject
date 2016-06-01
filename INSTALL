@@ -1,0 +1,63 @@
+1. For nodejs server:
+   1.1 Install nodejs and npm:
+        1.1.1 For Ubuntu:
+            sudo apt-get install curl
+            curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
+            sudo apt-get install nodejs
+
+        1.1.2 For Amazon Linux / RedHat:
+            sudo yum install nodejs npm --enablerepo=epel
+
+        1.1.3 For MacOSX:
+            sudo brew install node
+
+        1.1.4 For Windows:
+            You should use one of three previous choices
+
+    1.2 Install node modules:
+        cd <repo path>/waiterconnectserver 
+        sudo npm install -g supervisor bower mocha 
+        npm install
+        bower install
+
+    1.3 Set up facebook and google API key
+        Get file setenv_dev.sh from Quan or somebody in the team
+        source setenv_dev.sh
+
+
+2. For Postgres DB server:
+    2.1 Install:
+        2.1.1 For Ubuntu:
+            sudo apt-get install postgresql-9.4 
+
+        2.1.2 For Amazon Linux/RedHat:
+            sudo yum install postgresql postgresql-server postgresql-devel postgresql-contrib postgresql-docs
+            sudo service postgresql initdb
+            sudo service postgresql start
+
+        2.1.3 For MacOSX:
+            sudo brew install postgres
+            initdb /usr/local/var/postgres       
+            mkdir -p ~/Library/LaunchAgents
+            ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
+            launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+
+        2.1.4 For Windows:
+            You should use one of three previous choices
+
+   2.2 Change password of account postgres :
+        psql -h localhost -U postgres 
+        password is postgres
+        \password
+        (type new password here)
+
+        Open file db.js and change the postgres account password there 
+
+    2.3 Create schema and inject sample data:
+        sudo bash setup_db_dev.sh
+
+3. Run unit tests to see if things are working:
+    mocha
+
+4. Run nodejs server (after setting up Postgres DB server):
+    supervisor app.js

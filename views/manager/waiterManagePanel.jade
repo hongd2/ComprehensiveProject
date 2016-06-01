@@ -1,0 +1,31 @@
+extends managerBasePanel
+
+block extracss
+    link(href='/static/css/common.css', rel='stylesheet')
+
+block centerPanel
+  if errorMessage
+    h4(style="color: red;")= errorMessage
+  if goodMessage
+    h4(style="color: green;")= goodMessage
+
+  if user.manager.flag
+    .col-lg-12
+      .page-header
+        h3 All waiters you manage:
+    each waiter in all_waiters
+      .col-lg-4
+        .panel.panel-default
+          .panel-heading
+            a(href='/console/manager/waiter/' + waiter.user_id)
+              strong=waiter.waiter_info.waiter_name
+          .panel-body
+            .col-md-4
+              img.restaurant-picture(src=waiter.waiter_info.waiter_pic)
+            .col-md-8
+              p=waiter.username
+  else
+    // Enforce that only manager can access this page
+    h2
+      strong(style="color: red;")
+        | You don't have access to this area
